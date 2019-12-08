@@ -17,6 +17,7 @@ You can try either way to run the web service.
 ###### Try with your own tools to access:
     http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/
 
+This is a free aws server, so it might not work very stable, so please do tell me if you find it out of service.
 The interface spec strictly follows the requirement, i.e.:
 
     POST http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/register
