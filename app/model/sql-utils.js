@@ -1,5 +1,6 @@
 'use strict'
 
+var GeneralError = require('../utils/general-error')
 var mysql = require('mysql')
 
 module.exports = {
@@ -8,13 +9,10 @@ module.exports = {
 // 1. in my own sql sentance,  mysql.escape(string) is called before any sql call;
 // 2. in a placeholder (put ? in query(sql)), the escape is handled automatically.
 
-// show all teachers, for test purpose
-getAllTeachers: () => 'SELECT email FROM teacher ORDER BY id DESC',
-
 // register teacher with students
 register: (teacher, students) => {	
 	if (!teacher || !students) {
-		throw new Error('[Input] Invalid input data')
+		throw new GeneralError(400, `[Input] Invalid input data: ${field}`)
 	}
 
 	var teacherEsc = mysql.escape(teacher)
@@ -57,7 +55,7 @@ getStudents: (teachers) => {
 	*/
 
 	if (!teachers) {
-		throw new Error('[Input] Invalid input data')
+		throw new GeneralError(400, `[Input] Invalid input data: ${field}`)
 	}
 
 	var teachersEsc = []
@@ -105,7 +103,7 @@ getStudents: (teachers) => {
 // suspend student by email
 suspendStudent: (student) => {
 	if (!student) {
-		throw new Error('[Input] Invalid input data')
+		throw new GeneralError(400, `[Input] Invalid input data: ${field}`)
 	}
 	
 	var studentEsc = mysql.escape(student)

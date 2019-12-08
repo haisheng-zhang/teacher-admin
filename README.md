@@ -25,7 +25,7 @@ The interface spec strictly follows the requirement, i.e.:
     POST http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/retrievefornotifications
 
 ##### Source code
-    github....
+    https://github.com/haisheng-zhang/teacher-admin
 
 ## How to run
 
@@ -47,8 +47,8 @@ The interface spec strictly follows the requirement, i.e.:
 
 ##### Run application locally
     Get code from GitHub:
-        git clone ...
-    Go to the folder and run it:
+        git clone https://github.com/haisheng-zhang/teacher-admin
+    Go to the teacher-admin/ folder and run:
         npm start
 
 ##### Troublesooting

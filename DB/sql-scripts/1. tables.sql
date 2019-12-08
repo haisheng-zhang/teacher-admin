@@ -27,13 +27,13 @@ CREATE TABLE registration (
 );
 CREATE INDEX registration_index ON registration(teacher_id, student_id);
 
---  notification
-CREATE TABLE notification (
-    id MEDIUMINT NOT NULL AUTO_INCREMENT,
-    teacher_id MEDIUMINT NOT NULL,
-    notification VARCHAR(256) NOT NULL,
-    PRIMARY KEY (id)
-);
-CREATE INDEX notification_index ON notification(teacher_id);
+-- --  notification
+-- CREATE TABLE notification (
+--     id MEDIUMINT NOT NULL AUTO_INCREMENT,
+--     teacher_id MEDIUMINT NOT NULL,
+--     notification VARCHAR(256) NOT NULL,
+--     PRIMARY KEY (id)
+-- );
+-- CREATE INDEX notification_index ON notification(teacher_id);
 
 -- @todo: add index

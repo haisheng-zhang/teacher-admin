@@ -4,9 +4,6 @@ var sqlUtils = require('./sql-utils')
 
 module.exports = {
 
-// show all teachers, for test purpose
-getAllTeachers: (req) =>  queryDB(req, sqlUtils.getAllTeachers()),
-
 // register teacher with students
 register: (req, teacher, students) => queryDB(req, sqlUtils.register(teacher, students)),
 

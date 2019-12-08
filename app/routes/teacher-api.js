@@ -7,18 +7,11 @@ var service = require('../service/teacher-service')
 var errorHandler = require('../utils/error-handler')
 var reqParser = require('../utils/request-parser')
 
-// 0. SHOW LIST OF teachers, for test purpose
-app.get('/', (req, res, next) => {
-	service.getAllTeachers(req)
-		.then((data) => { res.json(data)})
-		.catch((error) => { errorHandler.handleReject(error, req, res) })
-})
-
 // 1. register teacher and students
 app.post('/register', (req, res, next) => {	
 	errorHandler.handleRequest(req, res)
-	var teacher = reqParser.get(req, res, 'teacher')
-	var students = reqParser.get(req, res, 'students').split(',')
+	var teacher = reqParser.post(req, res, 'teacher')
+	var students = reqParser.post(req, res, 'students')
 	console.log(`register input data: ${teacher}, [${students.join(', ')}]`)
 
     service.register(req, teacher, students)
@@ -29,7 +22,7 @@ app.post('/register', (req, res, next) => {
 // 2. show common students
 app.get('/commonstudents?:teacher', (req, res, next) => {
 	errorHandler.handleRequest(req, res)
-	var teachers = reqParser.get(req, res, 'teacher').split(',')
+	var teachers = reqParser.get(req, res, 'teacher')
 	console.log(`commonStudents input data: ${teachers.join(' ')}`)
 
 	service.getCommonStudents(req, teachers)
@@ -44,7 +37,7 @@ app.get('/commonstudents?:teacher', (req, res, next) => {
 // 3. suspend a student
 app.post('/suspend', (req, res, next) => {	
 	errorHandler.handleRequest(req, res)
-	var student = reqParser.get(req, res, 'student')
+	var student = reqParser.post(req, res, 'student')
 	console.log(`suspendStudent input data:  ${student}`)
 
 	service.suspendStudent(req, student)
@@ -55,8 +48,8 @@ app.post('/suspend', (req, res, next) => {
 // 4. notification list
 app.post('/retrievefornotifications', (req, res, next) => {	
 	errorHandler.handleRequest(req, res)
-	var teacher = reqParser.get(req, res, 'teacher').split(',')
-	var notification = reqParser.get(req, res, 'notification')
+	var teacher = reqParser.post(req, res, 'teacher').split(',')
+	var notification = reqParser.post(req, res, 'notification')
 	console.log(`notification input for:  ${teacher}, '${notification}'`)
 	
 	var x = ['teacher', 'notification']
