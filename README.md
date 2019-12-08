@@ -4,7 +4,7 @@ Teachers Admin Web Service
 ## Background
 
 Teachers need a system where they can perform administrative functions for their students. Teachers and students are identified by their email addresses.
-This project is to provide a web server (NodeJs and MySql) with public exposed API to fulfill the requirement.
+This project is to provide a web server (NodeJs + MySql) with public exposed API to fulfill the requirement.
 
 ## Quick start
 
@@ -12,9 +12,9 @@ This project is to provide a web server (NodeJs and MySql) with public exposed A
 You can try either way to run the web service.
 
 ###### Postman collections
-    Use ./tests/integration/ .........j...
+    Use ./tests/integration/TeacherAdminAWS.postman_collection.json
     
-###### Try with your own tools
+###### Try with your own tools to access:
     http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/
 
 The interface spec strictly follows the requirement, i.e.:
@@ -31,11 +31,7 @@ The interface spec strictly follows the requirement, i.e.:
 
 ##### Preparation
 ###### NodeJs
-    Install NodeJs in your way
-    Install dependency modules:
-        sudo npm install express -g
-        sudo npm install mysql -g
-        sudo npm install jest -q
+    Install NodeJs
 
 ###### DB
     [optional] Install Docker
@@ -48,8 +44,12 @@ The interface spec strictly follows the requirement, i.e.:
 ##### Run application locally
     Get code from GitHub:
         git clone https://github.com/haisheng-zhang/teacher-admin
-    Go to the teacher-admin/ folder and run:
-        npm start
+	Go to the teacher-admin/ folder, and then:
+		Install dependency modules:
+			npm install
+
+		Run:
+			npm start
 
 ##### Troublesooting
 If there is any error, please check config file for Database connection:
@@ -68,24 +68,23 @@ please change it accordingly.
     npm test
 
 ##### Run integration test (with Postman)
-    npm integration or script or postman?
+    you'd run the postman script (mentioned above) as integration test 
 
 ## Design
 
 ###### Overview
-This is a typical web service, where is no much surprice in design.
+This is a typical web service, where there is no much surprise in design.
 The logic structure in the project is designed this way:
 
 ***routes*** serves as both route and controller (receive request, dispatch, compose response and send back to client)
-***service*** serves as a middle layer to handle the bisiness logic, flow, input check and data massage, etc.
+***service*** serves as a middle layer to handle the business logic, flow, input check and data massage, etc.
 ***model*** connects to Database with MySql dialect support
 
-###### NodeJs Modules
+###### NodeJs dependency odules
 
 - express: as web server framework
 - mysql: Database connection and operation
 - jest: run unit test
-
 
 ##### Deployment architecture 
 ***Application server***: hosting NodeJs and applicatoin
@@ -99,16 +98,16 @@ RESTful API is designed.
 ##### CI/CD
 Any project should have a proper designed CI/CD pipeline, which includes (but not limited):
 
-    version control server (GitHub), -> 
-    static and dynamic code check (SonarQube) ->
+    version control server (GitHub)
+    static and dynamic code check (SonarQube)
     security check (?)
-    build, package and unit test (Jenkins) ->
-    deploy to container (Docker) ->
-    test automation (selenium or any other tools or self developed tools) ->
+    build, package and unit test (Jenkins)
+    deploy to container (Docker)
+    test automation (selenium or any other tools or self developed tools)
     automate bug report (Jira)
 
 ##### Containerize application server
-The application is deployed to AWS VM for now, a container environment is a better choise to host it.
+The application is deployed to AWS VM for now, a container environment is a better choise.
 
 ##### Typescript
 I was told to start from Typescript (because it is type safe) instead of Javascript especially in a big complex project.
