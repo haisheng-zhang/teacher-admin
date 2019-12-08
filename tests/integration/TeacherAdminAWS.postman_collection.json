@@ -61,7 +61,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/commonstudents?teacher=teacherken@gmail.com&teacher=teacherjame@gmail.com",
+					"raw": "http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/commonstudents?teacher=teacherken@gmail.com&teacher=teacherham@gmail.com",
 					"protocol": "http",
 					"host": [
 						"ec2-13-250-35-152",
@@ -82,7 +82,7 @@
 						},
 						{
 							"key": "teacher",
-							"value": "teacherjame@gmail.com"
+							"value": "teacherham@gmail.com"
 						}
 					]
 				}
