@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "c36f40f6-0979-4864-b60d-f6ef6eb179c2",
+		"name": "TeacherAdminAWS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1.register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"teacher\": \"teacherken@gmail.com\",\n\t\"students\":\n\t[\n\t\t\"studentjon@gmail.com\",\n\t\t\"studenthon@gmail.com\"\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/register",
+					"protocol": "http",
+					"host": [
+						"ec2-13-250-35-152",
+						"ap-southeast-1",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.commonstudents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/commonstudents?teacher=teacherken@gmail.com&teacher=teacherjame@gmail.com",
+					"protocol": "http",
+					"host": [
+						"ec2-13-250-35-152",
+						"ap-southeast-1",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"commonstudents"
+					],
+					"query": [
+						{
+							"key": "teacher",
+							"value": "teacherken@gmail.com"
+						},
+						{
+							"key": "teacher",
+							"value": "teacherjame@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.suspend",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"student\": \"studentjon@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/suspend",
+					"protocol": "http",
+					"host": [
+						"ec2-13-250-35-152",
+						"ap-southeast-1",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"suspend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.retrievefornotifications",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"teacher\": \"teacherken@gmail.com\",\n\t\"notification\": \"Hello, studentbob@gmail.com, studentjon@gmail.com.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-13-250-35-152.ap-southeast-1.compute.amazonaws.com:3000/api/retrievefornotifications",
+					"protocol": "http",
+					"host": [
+						"ec2-13-250-35-152",
+						"ap-southeast-1",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"retrievefornotifications"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b246aae9-a721-49e8-986a-13967b85bf3a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f729af19-a71e-4cf4-81cb-b5c0e75fb5c0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

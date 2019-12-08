@@ -12,7 +12,7 @@ module.exports = {
 // register teacher with students
 register: (teacher, students) => {	
 	if (!teacher || !students) {
-		throw new GeneralError(400, `[Input] Invalid input data: ${field}`)
+		throw new GeneralError(400, `[Input] Invalid input data`)
 	}
 
 	var teacherEsc = mysql.escape(teacher)
@@ -55,7 +55,7 @@ getStudents: (teachers) => {
 	*/
 
 	if (!teachers) {
-		throw new GeneralError(400, `[Input] Invalid input data: ${field}`)
+		throw new GeneralError(400, `[Input] Invalid input data`)
 	}
 
 	var teachersEsc = []
@@ -103,7 +103,7 @@ getStudents: (teachers) => {
 // suspend student by email
 suspendStudent: (student) => {
 	if (!student) {
-		throw new GeneralError(400, `[Input] Invalid input data: ${field}`)
+		throw new GeneralError(400, `[Input] Invalid input data`)
 	}
 	
 	var studentEsc = mysql.escape(student)

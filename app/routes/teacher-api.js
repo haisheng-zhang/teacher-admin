@@ -23,6 +23,9 @@ app.post('/register', (req, res, next) => {
 app.get('/commonstudents?:teacher', (req, res, next) => {
 	errorHandler.handleRequest(req, res)
 	var teachers = reqParser.get(req, res, 'teacher')
+
+	// normalize teacher parameter as array
+	teachers = Array.isArray(teachers) ? teachers : [teachers]
 	console.log(`commonStudents input data: ${teachers.join(' ')}`)
 
 	service.getCommonStudents(req, teachers)
