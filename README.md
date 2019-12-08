@@ -76,9 +76,9 @@ please change it accordingly.
 This is a typical web service, where there is no much surprise in design.
 The logic structure in the project is designed this way:
 
-***routes*** serves as both route and controller (receive request, dispatch, compose response and send back to client)
-***service*** serves as a middle layer to handle the business logic, flow, input check and data massage, etc.
-***model*** connects to Database with MySql dialect support
+- ***routes*** serves as both route and controller (receive request, dispatch, compose response and send back to client)
+- ***service*** serves as a middle layer to handle the business logic, flow, input check and data massage, etc.
+- ***model*** connects to Database with MySql dialect support
 
 ###### NodeJs dependency odules
 
@@ -87,8 +87,8 @@ The logic structure in the project is designed this way:
 - jest: run unit test
 
 ##### Deployment architecture 
-***Application server***: hosting NodeJs and applicatoin
-***Database server***: hosting MySql server and a Database named teacherdb
+- ***Application server***: hosting NodeJs and applicatoin
+- ***Database server***: hosting MySql server and a Database named teacherdb
 
 ### Interface
 RESTful API is designed.
