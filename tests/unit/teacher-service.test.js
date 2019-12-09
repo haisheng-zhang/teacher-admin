@@ -86,7 +86,25 @@ describe("Teacher service should work fine", () => {
             expect(service.getNotificationList).toBeTruthy();
         });
 
-        it("should return only common students", () => {
+        it("should return both mentioned and registered students", () => {
+            var mockStudentsData = [
+                { email: "commonstudent1@gmail.com" },
+                { email: "commonstudent2@gmail.com" }
+            ];
+            var mockEmailsData = [
+                "commonstudent3@gmail.com",
+                "commonstudent4@gmail.com"
+            ];
+            model.getStudents = () => Promise.resolve(mockStudentsData);
+            emailParser.findEmails = () => mockEmailsData;
+            service.getNotificationList({}, [])
+            .then(result => {
+                expect(result).toBeTruthy();
+                expect(result.length).toEqual(4);
+            });
+        });
+
+        it("should return only unique students", () => {
             var mockStudentsData = [
                 { email: "commonstudent1@gmail.com" },
                 { email: "commonstudent1@gmail.com" },

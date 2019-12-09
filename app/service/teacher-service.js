@@ -36,13 +36,14 @@ suspendStudent: (req, student) => {
 
 // 4. notification list
 getNotificationList: (req, teacher, notification) => {
+    // get emails from notification
+    var mentionedStudents = emailParser.findEmails(notification)
+
     // get emails from registration in DB 
     return new Promise((resolve, reject) => {
-        model.getStudents(req, teacher)
+        model.getNotificationStudents(req, teacher, mentionedStudents)
             .then((data) => { 
-                // get emails from notification
-                var students = emailParser.findEmails(notification)
-
+                var students = []
                 for (var i = 0; i < data.length; i++) {
                     students.push(data[i].email)
                 }

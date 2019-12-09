@@ -51,7 +51,7 @@ app.post('/suspend', (req, res, next) => {
 // 4. notification list
 app.post('/retrievefornotifications', (req, res, next) => {    
     errorHandler.handleRequest(req, res)
-    var teacher = reqParser.post(req, res, 'teacher').split(',')
+    var teacher = reqParser.post(req, res, 'teacher')
     var notification = reqParser.post(req, res, 'notification')
     console.log(`notification input for:  ${teacher}, '${notification}'`)
     

@@ -2,6 +2,78 @@ var assert = require('assert')
 var utils = require('../../app/model/sql-utils')
 
 describe('Sql utils should work fine', () => {
+
+    describe('register teacher', () =>  {
+        it('register teacher succeed', () =>  {
+            var expect = beautify(
+                `insert ignore into teacher(email) values ('t1@g.com')`
+            )
+
+            var sql = beautify(utils.registerTeacher('t1@g.com')).trim()
+
+            console.log(`register teacher sql: ${sql}`)
+            assert(expect === sql)
+        })
+
+        it('register teacher fails with undefined teacher', () =>  {
+            try {
+                utils.registerTeacher(undefined)
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+        it('register teacher fails with null teacher', () =>  {
+            try {
+                utils.registerTeacher(null)
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+        it('register teacher fails with empty teacher', () =>  {
+            try {
+                utils.registerTeacher('')
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+    })
+
+    describe('register students', () =>  {
+        it('register students succeed', () =>  {
+            var expect = beautify(
+                `insert ignore into student(email) 
+                values ('t1@g.com'),('t2@g.com')`
+            )
+
+            var sql = beautify(utils.registerStudents(['t1@g.com', 't2@g.com'])).trim()
+
+            console.log(`register students sql: ${sql}`)
+            assert(expect === sql)
+        })
+
+        it('register students fails with undefined students', () =>  {
+            try {
+                utils.registerStudents(undefined)
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+        it('register students fails with null students', () =>  {
+            try {
+                utils.registerStudents(null)
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+        it('register students fails with empty students', () =>  {
+            try {
+                utils.registerStudents([])
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+    })
+
     describe('register', () =>  {
         it('register succeed', () =>  {
             var expect = beautify(
@@ -137,6 +209,44 @@ describe('Sql utils should work fine', () => {
         it('suspend student fails with empty teacher', () =>  {
             try {
                 utils.suspendStudent('')
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+    })
+
+
+    describe('get non-suspend students', () =>  {
+        it('get non-suspend students succeed', () =>  {
+            var expect = beautify(
+                `select email 
+                from student 
+                where status != 'suspend' and email in ('t1@g.com','t2@g.com')`
+            )
+
+            var sql = beautify(utils.getNonSuspendStudents(['t1@g.com', 't2@g.com'])).trim()
+
+            console.log(`register students sql: ${sql}`)
+            assert(expect === sql)
+        })
+
+        it('get non-suspend students fails with undefined students', () =>  {
+            try {
+                utils.getNonSuspendStudents(undefined)
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+        it('get non-suspend students fails with null students', () =>  {
+            try {
+                utils.getNonSuspendStudents(null)
+            } catch (e) {
+                expect(e.message).toBe("[Input] Invalid input data");
+            }
+        })
+        it('get non-suspend students fails with empty students', () =>  {
+            try {
+                utils.getNonSuspendStudents([])
             } catch (e) {
                 expect(e.message).toBe("[Input] Invalid input data");
             }

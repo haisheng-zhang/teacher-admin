@@ -8,7 +8,7 @@ CREATE TABLE teacher (
     email CHAR(64) NOT NULL,
     PRIMARY KEY (id)
 );
-CREATE INDEX teacher_index ON teacher(email);
+CREATE UNIQUE INDEX teacher_index ON teacher(email);
 
 -- student
 CREATE TABLE student (
@@ -17,7 +17,7 @@ CREATE TABLE student (
     status CHAR(10) NOT NULL DEFAULT 'normal',
     PRIMARY KEY (id)
 );
-CREATE INDEX student_index ON student(email);
+CREATE UNIQUE INDEX student_index ON student(email);
 
 -- registration
 CREATE TABLE registration (
