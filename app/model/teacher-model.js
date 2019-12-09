@@ -17,20 +17,20 @@ suspendStudent: (req, student) => queryDB(req, sqlUtils.suspendStudent(student))
 
 // a generic method to call DB and execute sql query
 function queryDB(req, sql){
-	return new Promise((resolve, reject) => {
-		req.getConnection((error, conn) => {
-			conn.query(sql, (err, rows, fields) => {
-				callback(err, rows, fields, reject, resolve)
-			})
-		})
-	})
+    return new Promise((resolve, reject) => {
+        req.getConnection((error, conn) => {
+            conn.query(sql, (err, rows, fields) => {
+                callback(err, rows, fields, reject, resolve)
+            })
+        })
+    })
 }
 
 function callback(err, rows, fields, reject, resolve) {
-	console.log(`callback: ${err}, ${rows}, ${fields}`)
-	if (err) {
-		reject(err.toString())
-	} else {
-		resolve(rows)
-	}
+    console.log(`callback: ${err}, ${rows}, ${fields}`)
+    if (err) {
+        reject(err.toString())
+    } else {
+        resolve(rows)
+    }
 }
