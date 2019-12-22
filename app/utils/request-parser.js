@@ -1,17 +1,17 @@
 'use strict'
 
-var GeneralError = require('./general-error')
+const GeneralError = require('./general-error')
 
 module.exports = {
 
 post: (req, res, field) => {
-    var value = req.body[field]
+    const value = req.body[field]
     console.log(field, value)
     return validate(res, field, value)
 },
 
 get: (req, res, field) => {
-    var value = req.query[field]
+    const value = req.query[field]
     console.log(field, value)
     return validate(res, field, value)
 },

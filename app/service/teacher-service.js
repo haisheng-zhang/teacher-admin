@@ -1,7 +1,7 @@
 'use strict'
 
-var model = require('../model/teacher-model')
-var emailParser = require('../utils/email-parser')
+const model = require('../model/teacher-model')
+const emailParser = require('../utils/email-parser')
 
 module.exports = {
 
@@ -17,11 +17,11 @@ getCommonStudents: (req, teachers) => {
     return new Promise((resolve, reject) => {
         model.getStudents(req, teachers)
         .then((data) => { 
-            var students = []
+            const students = []
             for (var i = 0; i < data.length; i++) {
                 students.push(data[i].email)
             }
-            var uniqStudents = Array.from(new Set(students).values())
+            const uniqStudents = Array.from(new Set(students).values())
             console.log(`data consolidated: ${uniqStudents}`)
             resolve(uniqStudents)
         })
@@ -37,19 +37,19 @@ suspendStudent: (req, student) => {
 // 4. notification list
 getNotificationList: (req, teacher, notification) => {
     // get emails from notification
-    var mentionedStudents = emailParser.findEmails(notification)
+    const mentionedStudents = emailParser.findEmails(notification)
 
     // get emails from registration in DB 
     return new Promise((resolve, reject) => {
         model.getNotificationStudents(req, teacher, mentionedStudents)
             .then((data) => { 
-                var students = []
+                const students = []
                 for (var i = 0; i < data.length; i++) {
                     students.push(data[i].email)
                 }
 
                 // remove duplication
-                var uniqStudents = Array.from(new Set(students).values())
+                const uniqStudents = Array.from(new Set(students).values())
                 console.log(`data consolidated: ${uniqStudents}`)
                 resolve(uniqStudents)
             })

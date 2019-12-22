@@ -1,4 +1,4 @@
-var config = {
+const config = {
     database: {
         host:      'localhost',   // database host
         user:      'root',        // your database username

@@ -1,17 +1,17 @@
 'use strict'
 
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
 
-var service = require('../service/teacher-service')
-var errorHandler = require('../utils/error-handler')
-var reqParser = require('../utils/request-parser')
+const service = require('../service/teacher-service')
+const errorHandler = require('../utils/error-handler')
+const reqParser = require('../utils/request-parser')
 
 // 1. register teacher and students
 app.post('/register', (req, res, next) => {    
     errorHandler.handleRequest(req, res)
-    var teacher = reqParser.post(req, res, 'teacher')
-    var students = reqParser.post(req, res, 'students')
+    const teacher = reqParser.post(req, res, 'teacher')
+    const students = reqParser.post(req, res, 'students')
     console.log(`register input data: ${teacher}, [${students.join(', ')}]`)
 
     try {
@@ -48,7 +48,7 @@ app.get('/commonstudents?:teacher', (req, res, next) => {
 // 3. suspend a student
 app.post('/suspend', (req, res, next) => {    
     errorHandler.handleRequest(req, res)
-    var student = reqParser.post(req, res, 'student')
+    const student = reqParser.post(req, res, 'student')
     console.log(`suspendStudent input data:  ${student}`)
 
     try {
@@ -63,8 +63,8 @@ app.post('/suspend', (req, res, next) => {
 // 4. notification list
 app.post('/retrievefornotifications', (req, res, next) => {    
     errorHandler.handleRequest(req, res)
-    var teacher = reqParser.post(req, res, 'teacher')
-    var notification = reqParser.post(req, res, 'notification')
+    const teacher = reqParser.post(req, res, 'teacher')
+    const notification = reqParser.post(req, res, 'notification')
     console.log(`notification input for:  ${teacher}, '${notification}'`)
     
     try {

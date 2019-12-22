@@ -1,5 +1,5 @@
 'use strict'
-var app = require('../routes/teacher-api')
+const app = require('../routes/teacher-api')
 const GeneralError = require('./general-error')
 
 module.exports = {
@@ -32,7 +32,7 @@ handleReject: (error, req, res) => {
 },
 
 handleRequest: (req, res) => {
-    var errors = req.validationErrors()
+    const errors = req.validationErrors()
     if (errors) {
         res.status(400).json({
             message: '[Input] Invalid input data.'

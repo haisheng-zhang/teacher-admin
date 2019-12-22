@@ -1,6 +1,6 @@
 'use strict'
 
-var sqlUtils = require('./sql-utils')
+const sqlUtils = require('./sql-utils')
 
 module.exports = {
 
@@ -85,7 +85,7 @@ function registerTeacher(conn, teacher) {
     return new Promise(function(resolve, reject) {
         // register teacher
         console.log('before register teacher')
-        var teacherSql = sqlUtils.registerTeacher(teacher)
+        const teacherSql = sqlUtils.registerTeacher(teacher)
         conn.query(teacherSql, (err, rows, fields) => {
             console.log('after register teacher')
             errorRollbackAndReject(conn, reject, resolve, err)
@@ -97,7 +97,7 @@ function registerStudents(conn, students) {
     return new Promise(function(resolve, reject) {
         // register students
         console.log('before register students')
-        var studentsSql = sqlUtils.registerStudents(students)
+        const studentsSql = sqlUtils.registerStudents(students)
         conn.query(studentsSql, (err, rows, fields) => {
             console.log('after register students')
             errorRollbackAndReject(conn, reject, resolve, err)
@@ -109,7 +109,7 @@ function registerRelation(conn, teacher, students) {
     return new Promise(function(resolve, reject) {
         // register relation
         console.log('before register relation')
-        var sql = sqlUtils.register(teacher, students)
+        const sql = sqlUtils.register(teacher, students)
         conn.query(sql, (err, rows, fields) => {
             console.log('after register relation')
             errorRollbackAndReject(conn, reject, resolve, err)

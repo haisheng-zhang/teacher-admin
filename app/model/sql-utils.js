@@ -1,7 +1,7 @@
 'use strict'
 
-var GeneralError = require('../utils/general-error')
-var mysql = require('mysql')
+const GeneralError = require('../utils/general-error')
+const mysql = require('mysql')
 
 module.exports = {
 
@@ -13,9 +13,9 @@ module.exports = {
 registerTeacher: (teacher) => {
 
     validString(teacher)
-    var teacherEsc = mysql.escape(teacher)
+    const teacherEsc = mysql.escape(teacher)
 
-    var sql = `
+    const sql = `
         insert ignore into teacher(email) 
         values (${teacherEsc})
         `
@@ -27,13 +27,13 @@ registerTeacher: (teacher) => {
 registerStudents: (students) => {
 
     validArray(students)
-    var studentsEsc = escapeArray(students)
+    const studentsEsc = escapeArray(students)
 
     // NOTE: if some of the students have been in system, then we'll insert all of the non-existing students,
     //          no error will produce (like `Duplicate entry '4-1' for key 'PRIMARY'`)
     // same as teacher and relation table
-    var studentsUpdateStr = `(${studentsEsc.join('),(')})`
-    var sql = `
+    const studentsUpdateStr = `(${studentsEsc.join('),(')})`
+    const sql = `
         insert ignore into student(email) 
         values ${studentsUpdateStr}
         `
@@ -46,11 +46,11 @@ register: (teacher, students) => {
 
     validString(teacher)
     validArray(students)
-    var teacherEsc = mysql.escape(teacher)
-    var studentsEsc = escapeArray(students)
+    const teacherEsc = mysql.escape(teacher)
+    const studentsEsc = escapeArray(students)
 
-    var studentsQueryStr = `${studentsEsc.join(',')}`
-    var sql = `
+    const studentsQueryStr = `${studentsEsc.join(',')}`
+    const sql = `
         replace into registration(teacher_id, student_id)
         select 
             (select id from teacher where email = ${teacherEsc} limit 1) teacher_id,
@@ -81,10 +81,10 @@ getStudents: (teachers) => {
     */
 
     validArray(teachers)
-    var teachersEsc = escapeArray(teachers)
+    const teachersEsc = escapeArray(teachers)
 
-    var sqlStart = `select email from (`
-    var sqlEnd = `) t
+    const sqlStart = `select email from (`
+    const sqlEnd = `) t
         join student s
         on (s.id = t.student_id)
         where s.status != 'suspend'`
@@ -114,7 +114,7 @@ getStudents: (teachers) => {
         onConditionQuery += ` and t0.student_id = t${i}.student_id`
     }
 
-    var sql = sqlStart + sqlQuery + onConditionStart + onConditionQuery + onConditionEnd + sqlEnd
+    const sql = sqlStart + sqlQuery + onConditionStart + onConditionQuery + onConditionEnd + sqlEnd
     
     console.log(`getStudents by teacher sql: ${sql}`)
     return sql
@@ -124,17 +124,17 @@ getStudents: (teachers) => {
 suspendStudent: (student) => {
     validString(student)
     
-    var studentEsc = mysql.escape(student)
+    const studentEsc = mysql.escape(student)
     return `update student set status = \'suspend\' where email = ${studentEsc}`
 },
 
 // get non-suspend students
 getNonSuspendStudents: (students) => {    
     validArray(students)
-    var studentsEsc = escapeArray(students)
+    const studentsEsc = escapeArray(students)
 
-    var studentStr = `${studentsEsc.join(',')}`
-    var sql = `
+    const studentStr = `${studentsEsc.join(',')}`
+    const sql = `
         select email 
         from student 
         where status != 'suspend' and email in (${studentStr})
@@ -157,7 +157,7 @@ function validArray(array){
 }
 
 function escapeArray(array){
-    var arrayEsc = []
+    const arrayEsc = []
     for (var i = 0; i < array.length; i++){
         arrayEsc.push(mysql.escape(array[i]))
     }
