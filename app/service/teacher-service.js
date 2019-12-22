@@ -55,6 +55,5 @@ getNotificationList: (req, teacher, notification) => {
             })
             .catch((error) => { reject(error) })
     })
-    // @todo: do we save notification message to DB? Not for now.
 },
 }

@@ -6,40 +6,24 @@ module.exports = {
 
 // register teacher with students
 register: (req, teacher, students) => {
-    // the code is ugly....
-
     return new Promise((resolve, reject) => {
-        req.getConnection((error, conn) => {
+        req.getConnection((err, conn) => {
+            checkConnection(conn, reject, resolve, err)
             conn.beginTransaction( (err) => {
-                // register teacher
-                var teacherSql = sqlUtils.registerTeacher(teacher)
-                conn.query(teacherSql, (err, rows, fields) => {
-                    console.log(`callback: ${err}, ${rows}, ${fields}`)
-                    errorRollbackAndReject(conn, reject, resolve, err)
-
-                    // register students
-                    var studentsSql = sqlUtils.registerStudents(students)
-                    conn.query(studentsSql, (err, rows, fields) => {
-                        console.log(`callback: ${err}, ${rows}, ${fields}`)
+                Promise.all([
+                    registerTeacher(conn, teacher),
+                    registerStudents(conn, students)
+                ]).then(() => {
+                    registerRelation(conn, teacher, students)
+                }
+                ).then(() => {
+                    conn.commit((err) =>{
                         errorRollbackAndReject(conn, reject, resolve, err)
-
-                        // register relation
-                        var sql = sqlUtils.register(teacher, students)
-                        conn.query(sql, (err, rows, fields) => {
-                            console.log(`callback: ${err}, ${rows}, ${fields}`)
-                            errorRollbackAndReject(conn, reject, resolve, err)
-
-                            conn.commit((err) =>{
-                                errorRollbackAndReject(conn, reject, resolve, err)
-
-                                console.log('Register transaction Complete.');
-                                resolve(rows)
-                            })
-                        })
                     })
+                }).catch((err) => {
+                    errorRollbackAndReject(conn, reject, resolve, err)
                 })
             })
-
         })
     })
 },
@@ -63,7 +47,8 @@ getNotificationStudents: (req, teacher, mentionedStudents) => {
 // a generic method to call DB and execute sql query
 function queryDB(req, sql){
     return new Promise((resolve, reject) => {
-        req.getConnection((error, conn) => {
+        req.getConnection((err, conn) => {
+            checkConnection(conn, reject, resolve, err)
             conn.query(sql, (err, rows, fields) => {
                 callback(err, rows, fields, reject, resolve)
             })
@@ -83,8 +68,51 @@ function callback(err, rows, fields, reject, resolve) {
 function errorRollbackAndReject(conn, reject, resolve, err) {
     if (err) { 
         conn.rollback(() => {
-            conn.release()
             reject(err.toString())
         })
+    } else {
+        resolve(1)
     }
+}
+
+function checkConnection(conn, reject, resolve, err) {
+    if (err) { 
+        reject(err.toString())
+    }
+}
+
+function registerTeacher(conn, teacher) {
+    return new Promise(function(resolve, reject) {
+        // register teacher
+        console.log('before register teacher')
+        var teacherSql = sqlUtils.registerTeacher(teacher)
+        conn.query(teacherSql, (err, rows, fields) => {
+            console.log('after register teacher')
+            errorRollbackAndReject(conn, reject, resolve, err)
+        })
+    })
+}
+
+function registerStudents(conn, students) {
+    return new Promise(function(resolve, reject) {
+        // register students
+        console.log('before register students')
+        var studentsSql = sqlUtils.registerStudents(students)
+        conn.query(studentsSql, (err, rows, fields) => {
+            console.log('after register students')
+            errorRollbackAndReject(conn, reject, resolve, err)
+        })
+    })
+}
+
+function registerRelation(conn, teacher, students) {
+    return new Promise(function(resolve, reject) {
+        // register relation
+        console.log('before register relation')
+        var sql = sqlUtils.register(teacher, students)
+        conn.query(sql, (err, rows, fields) => {
+            console.log('after register relation')
+            errorRollbackAndReject(conn, reject, resolve, err)
+        })
+    })
 }
