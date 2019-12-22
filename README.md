@@ -119,3 +119,12 @@ I was told to start from Typescript (because it is type safe) instead of Javascr
 I started the project by referring this project:
     
     https://github.com/chapagain/nodejs-mysql-crud
+
+## History
+
+V1: Submit for assessment.
+V2: Code refactor:
+
+    var -> const
+    transaction logic in model to register: make transaction better
+
